@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: capstone-app-service
+  namespace: capstone-app
+
+spec:
+  selector:
+    app: capstone-app-label
+  ports:
+    - protocol: TCP
+      port: 8087
+      targetPort: 80

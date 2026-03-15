@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: capstone-app-pod
+  namespace: capstone-app
+
+spec:
+  containers:
+    - name: capstone-app
+      image: shivkumarkonnuri/capstone-app:latest
+      ports:
+        - containerPort: 80
