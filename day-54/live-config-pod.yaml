@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: live-config-pod
+spec:
+  containers:
+    - name: live-config-container
+      image: busybox:latest
+      command: ["sh", "-c", "while true; do echo $(cat /etc/config/message); sleep 5; done"]
+      envFrom:
+        - configMapRef:
+            name: live-config
+      volumeMounts:
+        - name: live-config-volume
+          mountPath: /etc/config
+  volumes:
+    - name: live-config-volume
+      configMap:
+        name: live-config
