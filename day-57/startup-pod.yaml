@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: startup-pod
+  labels:
+    app: startup-pod
+spec:
+  containers:
+    - name: "busybox"
+      image: "busybox:latest"
+      command:
+        - sh
+        - -c
+        - |
+          echo "Starting Container...";
+          sleep 20;
+          touch /tmp/started;
+          echo "Startup complete";
+          sleep 600;
+      startupProbe:
+        exec:
+          command:
+            - cat 
+            - /tmp/started
+        periodSeconds: 5
+        failureThreshold: 12
+      livenessProbe:
+        exec:
+          command:
+            - cat
+            - /tmp/started
+        periodSeconds: 5
+        failureThreshold: 3
